@@ -24,7 +24,8 @@ func process_movement(delta):
         direction.x = -1
     if Input.is_action_pressed("ui_right"):
         direction.x = 1
-    tank_sprite.animation = resolve_sprite_direction(direction)
+    if direction.x or direction.y:
+        tank_sprite.animation = resolve_sprite_direction(direction)
     
     move_and_slide(direction * move_speed) 
     
@@ -33,11 +34,11 @@ func resolve_sprite_direction(direction):
         return "horizontal"
     if direction.x == 0 and direction.y != 0:
         return "vertical"
-    if direction.x == 1 and direction.y == 1 or direction.x == -1 and direction.y == -1:
+    if direction.x == direction.y:
         return "main_diagonal"
-    if direction.x == -1 and direction.y == 1 or direction.x == 1 and direction.y == -1:
+    if direction.x != direction.y:
         return "anti_diagonal"
-    return tank_sprite.animation
+    
     
 func process_aim():
     cannon.look_at(get_global_mouse_position())
