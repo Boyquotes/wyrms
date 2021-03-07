@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://tank.gd" type="Script" id=1]
+[ext_resource path="res://tank.png" type="Texture" id=2]
+[ext_resource path="res://tank_cannon.png" type="Texture" id=3]
+[ext_resource path="res://cannon.gd" type="Script" id=4]
+[ext_resource path="res://progress_bar.png" type="Texture" id=5]
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "vertical",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ) ],
+"loop": true,
+"name": "horizontal",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "main_diagonal",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ) ],
+"loop": true,
+"name": "anti_diagonal",
+"speed": 5.0
+} ]
+
+[node name="tank" type="KinematicBody2D"]
+position = Vector2( 35.0396, 22.5254 )
+script = ExtResource( 1 )
+
+[node name="tank" type="AnimatedSprite" parent="."]
+frames = SubResource( 3 )
+animation = "horizontal"
+
+[node name="cannon" type="Sprite" parent="."]
+position = Vector2( 0.271061, -8.5689 )
+texture = ExtResource( 3 )
+offset = Vector2( 7.25873, 0.0404339 )
+script = ExtResource( 4 )
+
+[node name="chargeBar" type="TextureProgress" parent="cannon"]
+margin_left = 17.0
+margin_top = -16.0
+margin_right = 49.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0.563068, 15.7172 )
+texture_progress = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
