@@ -6,13 +6,15 @@ onready var charge_bar:TextureProgress = $cannon/chargeBar
 
 var shot_charge = 0
 var shot_increasing = true
+var active = false
 
 const move_speed = 100
 
 func _physics_process(delta):
-    process_movement(delta)
-    process_aim()
-    process_fire()
+    if(active):
+        process_movement(delta)
+        process_aim()
+        process_fire()
 
 func process_movement(delta):
     var direction = Vector2(0, 0)
@@ -53,5 +55,17 @@ func process_fire():
             shot_increasing = shot_charge <= 0
     else:
         shot_charge = 0
-        
+    
+    update_charge_bar()  
+
+func update_charge_bar():
     charge_bar.value = shot_charge
+    
+func activate():
+    active = true
+
+func deactivate():
+    active = false
+    shot_charge = 0
+    shot_increasing = true
+    update_charge_bar()
