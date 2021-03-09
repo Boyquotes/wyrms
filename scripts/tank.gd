@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
 onready var tank_sprite:AnimatedSprite = $tank
-onready var cannon:Sprite = $cannon
+onready var cannon:AnimatedSprite = $cannon
 onready var charge_bar:TextureProgress = $cannon/chargeBar
 
 var shot_charge = 0
 var shot_increasing = true
-var active = false
+var active = true
 
 const move_speed = 100
 
@@ -27,23 +27,27 @@ func process_movement(delta):
     if Input.is_action_pressed("ui_right"):
         direction.x = 1
     if direction.x or direction.y:
-        tank_sprite.animation = resolve_sprite_direction(direction)
+        tank_sprite.frame = resolve_sprite_direction(direction)
     
     move_and_slide(direction * move_speed) 
     
-func resolve_sprite_direction(direction):
-    if direction.y == 0 and direction.x != 0:
-        return "horizontal"
-    if direction.x == 0 and direction.y != 0:
-        return "vertical"
-    if direction.x == direction.y:
-        return "main_diagonal"
-    if direction.x != direction.y:
-        return "anti_diagonal"
+func resolve_sprite_direction(direction: Vector2):
+    var moving_angle = int(rad2deg(direction.angle())) % 360
+    if moving_angle < 0:
+        moving_angle += 360
     
+    return moving_angle / 45
     
 func process_aim():
-    cannon.look_at(get_global_mouse_position())
+    var cannon_angle = get_angle_to(get_global_mouse_position())
+
+    cannon_angle = int(rad2deg(cannon_angle) + 45) % 360
+    if cannon_angle < 0:
+        cannon_angle += 360
+    
+    cannon.set_frame(int(cannon_angle / 45))
+    
+    
 
 func process_fire():
     if Input.is_mouse_button_pressed(BUTTON_LEFT):
