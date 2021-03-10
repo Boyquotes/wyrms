@@ -2,19 +2,27 @@ extends KinematicBody2D
 
 onready var tank_sprite:AnimatedSprite = $tank
 onready var cannon:AnimatedSprite = $cannon
-onready var charge_bar:TextureProgress = $cannon/chargeBar
+onready var charge_bar:TextureProgress = $progressBars/cannonBar
+onready var health_bar:ProgressBar = $progressBars/healthBar
 
 var shot_charge = 0
 var shot_increasing = true
 var active = true
 
+var health = 100
+
 const move_speed = 100
+
+func _ready():
+    tank_sprite.modulate = Color(randf(), randf(), randf(), 1)
+
 
 func _physics_process(delta):
     if(active):
         process_movement(delta)
         process_aim()
         process_fire()
+        update_health()
 
 func process_movement(delta):
     var direction = Vector2(0, 0)
@@ -45,9 +53,7 @@ func process_aim():
     if cannon_angle < 0:
         cannon_angle += 360
     
-    cannon.set_frame(int(cannon_angle / 45))
-    
-    
+    cannon.set_frame(int(cannon_angle / 45))    
 
 func process_fire():
     if Input.is_mouse_button_pressed(BUTTON_LEFT):
@@ -73,3 +79,6 @@ func deactivate():
     shot_charge = 0
     shot_increasing = true
     update_charge_bar()
+
+func update_health():
+    health_bar.value = health
