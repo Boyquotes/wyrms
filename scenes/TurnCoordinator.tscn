@@ -15,3 +15,5 @@ text = "Current Player: "
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="bulletContainer" type="Node2D" parent="."]

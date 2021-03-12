@@ -5,6 +5,10 @@ onready var cannon:AnimatedSprite = $cannon
 onready var charge_bar:TextureProgress = $progressBars/cannonBar
 onready var health_bar:ProgressBar = $progressBars/healthBar
 
+onready var bullet_container:Node2D = get_parent().get_node("bulletContainer")
+
+onready var default_shot: PackedScene = load("res://scenes/bullets/DefaultShot.tscn")
+
 var shot_charge = 0
 var shot_increasing = true
 var active = true
@@ -57,6 +61,11 @@ func process_aim():
 
 func process_fire():
     if Input.is_mouse_button_pressed(BUTTON_LEFT):
+        var bullet = default_shot.instance()
+        bullet_container.add_child(bullet)
+        bullet.position = self.position
+        bullet.look_at(get_global_mouse_position())
+        
         if(shot_increasing):
             shot_charge += 1
             shot_increasing = shot_charge <= 100
