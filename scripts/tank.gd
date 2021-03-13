@@ -12,10 +12,12 @@ onready var default_shot: PackedScene = load("res://scenes/bullets/DefaultShot.t
 var shot_charge = 0
 var shot_increasing = true
 var active = true
+var has_shot = true
 
 var health = 100
 
 const move_speed = 100
+signal set_turn_duration(duration)
 
 func _ready():
     tank_sprite.modulate = Color(randf(), randf(), randf(), 1)
@@ -60,21 +62,24 @@ func process_aim():
     cannon.set_frame(int(cannon_angle / 45))    
 
 func process_fire():
-    if Input.is_mouse_button_pressed(BUTTON_LEFT):
-        var bullet = default_shot.instance()
-        bullet_container.add_child(bullet)
-        bullet.position = self.position
-        bullet.look_at(get_global_mouse_position())
-        
-        if(shot_increasing):
-            shot_charge += 1
-            shot_increasing = shot_charge <= 100
+    if not(has_shot):
+        if Input.is_mouse_button_pressed(BUTTON_LEFT):
+            var bullet = default_shot.instance()
+            bullet_container.add_child(bullet)
+            bullet.position = self.position
+            bullet.look_at(get_global_mouse_position())  
+            bullet.parent_collider_id = self.get_instance_id()
+            emit_signal("set_turn_duration", 2)
+            has_shot = true
+            if(shot_increasing):
+                shot_charge += 1
+                shot_increasing = shot_charge <= 100
+            else:
+                shot_charge -= 1
+                shot_increasing = shot_charge <= 0
         else:
-            shot_charge -= 1
-            shot_increasing = shot_charge <= 0
-    else:
-        shot_charge = 0
-    
+            shot_charge = 0
+        
     update_charge_bar()  
 
 func update_charge_bar():
@@ -82,6 +87,7 @@ func update_charge_bar():
     
 func activate():
     active = true
+    has_shot = false
 
 func deactivate():
     active = false
@@ -91,3 +97,7 @@ func deactivate():
 
 func update_health():
     health_bar.value = health
+
+func damage(value):
+    health -= value
+    update_health()

@@ -110,7 +110,9 @@ bg_color = Color( 0.462745, 0.905882, 0.34902, 1 )
 [sub_resource type="StyleBoxFlat" id=21]
 bg_color = Color( 0.901961, 0.52549, 0.52549, 0.427451 )
 
-[node name="tank" type="KinematicBody2D"]
+[node name="tank" type="KinematicBody2D" groups=[
+"player",
+]]
 position = Vector2( 35.0396, 22.5254 )
 script = ExtResource( 2 )
 
@@ -138,7 +140,7 @@ margin_right = 16.0511
 margin_bottom = -16.6531
 custom_styles/fg = SubResource( 20 )
 custom_styles/bg = SubResource( 21 )
-value = 70.0
+value = 100.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false

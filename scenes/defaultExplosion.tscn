@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/defaultExplosion.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 131.667
+
+[node name="defaultExplosion" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="explosionParticle" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.2
+one_shot = true
+randomness = 0.07
+local_coords = false
+emission_shape = 1
+emission_sphere_radius = 23.52
+gravity = Vector2( 0, 0 )
+scale_amount = 10.26
+color = Color( 0.501961, 0.0117647, 0.0117647, 1 )
+hue_variation = 0.07
+
+[node name="explosionCollider" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
