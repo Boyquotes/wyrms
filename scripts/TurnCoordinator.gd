@@ -21,7 +21,7 @@ func _ready():
         player.position = Vector2(100 * i, 100 * i)
         player.connect("set_turn_duration", self, "set_turn_duration")
         players.append(player)
-    
+
     players[0].activate()
     update_player_label()
     current_timer = turn_duration
@@ -30,7 +30,7 @@ func _ready():
 func manage_turns(delta):
     if(count_current_players() <= 1):
         end_game()
-        
+
     current_timer -= delta
     update_timer_label()
     if(current_timer <= 0):
@@ -57,13 +57,13 @@ func count_current_players():
 func deactivate_current_player():
     if(players[current_player]):
         players[current_player].deactivate()
-        
+
 func restart_turn():
     current_timer = turn_duration
 
 func end_turn():
     current_timer = 0
-    
+
 func activate_next_player():
     print("next player")
     current_player = (current_player + 1) % number_of_players
@@ -71,7 +71,7 @@ func activate_next_player():
         players[current_player].activate()
     else:
         end_turn()
-       
+
 func update_player_label():
     current_player_label.text = "Current Player: P" + str(current_player + 1)
 

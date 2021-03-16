@@ -16,6 +16,7 @@ func _on_DefaultShot_body_entered(body):
             has_exploded = true
             print("firing explosion")
             var explosion = default_explosion.instance()
+            explosion.setup(100, 30)
             get_parent().call_deferred("add_child", explosion)
             explosion.position = self.position
 
