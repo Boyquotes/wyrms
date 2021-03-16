@@ -44,12 +44,12 @@ func _physics_process(delta):
         manage_turns(delta)
 
 func end_game():
+    deactivate_current_player()
     game_running = false
 
 func count_current_players():
     var counter = 0
     for player in players:
-        print(player)
         if(player):
             counter += 1
     return counter
@@ -65,6 +65,7 @@ func end_turn():
     current_timer = 0
     
 func activate_next_player():
+    print("next player")
     current_player = (current_player + 1) % number_of_players
     if(players[current_player]):
         players[current_player].activate()

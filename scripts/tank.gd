@@ -67,13 +67,10 @@ func process_aim():
 func process_fire():
     if not(has_shot):
         if Input.is_mouse_button_pressed(BUTTON_LEFT):
-            var bullet = default_shot.instance()
-            bullet_container.add_child(bullet)
-            bullet.position = self.position
-            bullet.look_at(get_global_mouse_position())  
-            bullet.parent_collider_id = self.get_instance_id()
-            emit_signal("set_turn_duration", 2)
             has_shot = true
+            fire_default_shot()
+            emit_signal("set_turn_duration", 2)
+
             if(shot_increasing):
                 shot_charge += 1
                 shot_increasing = shot_charge <= 100
@@ -84,6 +81,14 @@ func process_fire():
             shot_charge = 0
         
     update_charge_bar()  
+
+func fire_default_shot():
+    print("firing default shot")
+    var bullet = default_shot.instance()
+    bullet_container.add_child(bullet)
+    bullet.position = self.position
+    bullet.look_at(get_global_mouse_position())  
+    bullet.parent_collider_id = self.get_instance_id()
 
 func update_charge_bar():
     charge_bar.value = shot_charge
@@ -102,5 +107,6 @@ func update_health():
     health_bar.value = health
 
 func damage(value):
+    print("took damage: " + str(value))
     health -= value
     update_health()
