@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="explosionParticle" type="CPUParticles2D"]
+emitting = false
+amount = 32
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.18
+randomness = 0.47
+fract_delta = false
+local_coords = false
+emission_shape = 1
+emission_sphere_radius = 38.44
+gravity = Vector2( 0, 0 )
+scale_amount = 10.26
+color = Color( 0.501961, 0.0117647, 0.0117647, 1 )
+hue_variation = 0.14

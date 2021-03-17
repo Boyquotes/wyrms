@@ -9,14 +9,12 @@ func setup(explosionRadius, explosionDamage):
     damage = explosionDamage
     set_collider_shape()
 
-
 func _physics_process (delta):
     var bodies = get_overlapping_bodies()
     for body in bodies:
         if(body.is_in_group("player")):
             if not(body.get_instance_id() in damaged_entities):
                 body.damage(proportional_damage(body))
-                #body.damage(30)
                 damaged_entities.append(body.get_instance_id())
         if(body.is_in_group("destructible")):
             body.explode(proportional_damage(body))
