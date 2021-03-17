@@ -19,7 +19,7 @@ func _physics_process (delta):
                 #body.damage(30)
                 damaged_entities.append(body.get_instance_id())
         if(body.is_in_group("destructible")):
-            body.explode()
+            body.explode(proportional_damage(body))
     queue_free()
 
 func set_collider_shape():

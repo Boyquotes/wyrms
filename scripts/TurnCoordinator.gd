@@ -14,11 +14,12 @@ var current_timer = 0.0
 var turn_duration = 30.0
 
 func _ready():
+    var spawn_points = $Map.get_spawn_points()
     for i in range(0, number_of_players):
         var player = tank_scene.instance()
         add_child(player)
         player.deactivate()
-        player.position = Vector2(100 * i, 100 * i)
+        player.position = spawn_points[i]
         player.connect("set_turn_duration", self, "set_turn_duration")
         players.append(player)
 

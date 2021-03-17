@@ -17,3 +17,10 @@ func populate_tilemap_with_logic_nodes():
         print(tilemap.cell_size)
         cell_node.position = Vector2(cell.x * tilemap.cell_size.x, cell.y * tilemap.cell_size.y)
         cell_nodes.add_child(cell_node)
+
+func get_spawn_points():
+    var children = $spawnPoints.get_children()
+    var points = []
+    for child in children:
+        points.append(child.position)
+    return points

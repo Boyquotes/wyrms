@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/wall.gd" type="Script" id=1]
+[ext_resource path="res://sprites/wall_crack.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -13,3 +14,8 @@ script = ExtResource( 1 )
 position = Vector2( 16, 16 )
 scale = Vector2( 1.6, 1.6 )
 shape = SubResource( 1 )
+
+[node name="crack" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 16, 16 )
+texture = ExtResource( 2 )
