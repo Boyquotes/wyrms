@@ -101,8 +101,8 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=19]
-radius = 19.8793
+[sub_resource type="RectangleShape2D" id=19]
+extents = Vector2( 22.3561, 22.5991 )
 
 [sub_resource type="StyleBoxFlat" id=20]
 bg_color = Color( 0.462745, 0.905882, 0.34902, 1 )
@@ -113,7 +113,7 @@ bg_color = Color( 0.901961, 0.52549, 0.52549, 0.427451 )
 [node name="tank" type="KinematicBody2D" groups=[
 "player",
 ]]
-position = Vector2( 35.0396, 22.5254 )
+scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 2 )
 
 [node name="tank" type="AnimatedSprite" parent="."]
@@ -125,9 +125,12 @@ frames = SubResource( 18 )
 animation = "tank_cannon"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1.05945, 9.53518 )
 shape = SubResource( 19 )
 
 [node name="progressBars" type="Node2D" parent="."]
+position = Vector2( -1, 10 )
+scale = Vector2( 2, 2 )
 z_index = 1
 z_as_relative = false
 
